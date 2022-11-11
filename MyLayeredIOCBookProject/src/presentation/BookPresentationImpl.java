@@ -3,15 +3,21 @@ package presentation;
 import java.util.Collection;
 import java.util.Scanner;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
+
 import entity.Book;
 import service.BookService;
 
-
+@Component("bookPresentation")
 public class BookPresentationImpl implements BookPresentation {
 
 	// presentation will pass request to service layer for all business logic actions
 	private BookService bookService;
 	// setter 
+	@Autowired
+	@Qualifier("service")
 	public void setBookService(BookService bookService) {
 		this.bookService = bookService;
 	}

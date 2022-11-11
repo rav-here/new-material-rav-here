@@ -2,15 +2,19 @@ package service;
 
 import java.util.Collection;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import entity.Book;
 import persistence.BookDao;
 
+@Component("servie")
 public class BookServiceImpl implements BookService {
 
 	// Service requests persistence layer for all data needs
 	private BookDao bookDao;
 	// constructor
-	public BookServiceImpl(BookDao bookDao) {
+	public BookServiceImpl(@Autowired BookDao bookDao) {
 		this.bookDao  = bookDao;
 	}
 	

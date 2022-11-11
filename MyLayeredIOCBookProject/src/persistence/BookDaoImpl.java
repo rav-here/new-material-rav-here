@@ -2,9 +2,12 @@ package persistence;
 
 import java.util.Collection;
 
+import org.springframework.stereotype.Component;
+
 import database.BookDatabase;
 import entity.Book;
 
+@Component("dao")
 public class BookDaoImpl implements BookDao {
 
 	@Override
