@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import entity.Book;
 import persistence.BookDao;
 
-@Component("servie")
+@Component("service")
 public class BookServiceImpl implements BookService {
 
 	// Service requests persistence layer for all data needs
