@@ -1,6 +1,9 @@
 package persistence;
 
 import java.util.Collection;
+import java.util.List;
+
+import org.springframework.stereotype.Component;
 
 import database.StudentDatabase;
 import entity.Student;

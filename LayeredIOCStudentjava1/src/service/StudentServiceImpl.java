@@ -1,8 +1,8 @@
 package service;
 
+import java.util.ArrayList;
 import java.util.Collection;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import java.util.List;
 
 import entity.Student;
 import persistence.StudentDao;
@@ -12,7 +12,7 @@ public class StudentServiceImpl implements StudentService {
 	// Service requests persistence layer for all data needs
 	private StudentDao studentDao;
 	// constructor
-	public StudentServiceImpl(@Autowired StudentDao studentDao) {
+	public StudentServiceImpl(StudentDao studentDao) {
 	this.studentDao  = studentDao;
 		}
 		
@@ -39,6 +39,22 @@ public class StudentServiceImpl implements StudentService {
 	}
 
 
+	@Override
+	public List<Student> generateStudentsByGrade(int Max, int Min) {
+	    Collection<Student> students = studentDao.getAllRecords();
+		List<Student> sameGradeStudents = new ArrayList();
+		for (Student s : students) {
+			if (s.getGrade() <= Max && Min <= s.getGrade()) {
+				sameGradeStudents.add(s);
+			}
+			
+		}
+		
+		return sameGradeStudents;
+	}
+
+
 	
 
 }
+

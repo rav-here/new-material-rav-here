@@ -1,6 +1,8 @@
 package service;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -39,6 +41,21 @@ public class StudentServiceImpl implements StudentService {
 		studentDao.insertRecord(student);
 		return true;
 	}
+	
+	@Override
+	public List<Student> generateStudentsByGrade(int Max, int Min) {
+	    Collection<Student> students = studentDao.getAllRecords();
+		List<Student> sameGradeStudents = new ArrayList();
+		for (Student s : students) {
+			if (s.getGrade() <= Max && Min <= s.getGrade()) {
+				sameGradeStudents.add(s);
+			}
+			
+		}
+		
+		return sameGradeStudents;
+	}
+
 
 
 	
