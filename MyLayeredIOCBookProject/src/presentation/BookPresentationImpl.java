@@ -17,7 +17,7 @@ public class BookPresentationImpl implements BookPresentation {
 	private BookService bookService;
 	// setter 
 	@Autowired
-	@Qualifier("service")
+	@Qualifier("service") // not needed since there is only one candidate: one implementation of the BookService interface
 	public void setBookService(BookService bookService) {
 		this.bookService = bookService;
 	}

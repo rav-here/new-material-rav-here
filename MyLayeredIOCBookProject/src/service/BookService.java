@@ -10,7 +10,7 @@ public interface BookService {
 
 	Book searchBookById(int id);
 
-	boolean addBook(Book bookO);
+	boolean addBook(Book book);
 	
 	boolean newPages(int id,int Pages);
 	
