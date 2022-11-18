@@ -1,5 +1,6 @@
 package com.sujata.entity;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
 import lombok.Data;

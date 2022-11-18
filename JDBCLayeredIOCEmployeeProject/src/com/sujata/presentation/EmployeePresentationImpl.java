@@ -1,6 +1,8 @@
 package com.sujata.presentation;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeFormatterBuilder;
 import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
@@ -28,7 +30,7 @@ public class EmployeePresentationImpl implements EmployeePresentation {
 		System.out.println("2. Search Employee By ID");
 		System.out.println("3. Add New Employee");
 		System.out.println("4. Delete Employee");
-		System.out.println("5. Increment Salary");
+		System.out.println("5. Increment Salary"); 
 		System.out.println("6. Generate PaySlip");
 		System.out.println("7. Search Employee By Department");
 		System.out.println("8. Exit");
@@ -60,17 +62,20 @@ public class EmployeePresentationImpl implements EmployeePresentation {
 			
 			System.out.println("Enter Employee id : ");
 			newEmployee.setEmpId(scanner.nextInt());
+			scanner.nextLine();
 			System.out.println("Enter Employee Name : ");
-			newEmployee.setEmpName(scanner.next());
+			newEmployee.setEmpName(scanner.nextLine());
 			System.out.println("Enter Employee Designation : ");
-			newEmployee.setEmpDesignation(scanner.next());
+			newEmployee.setEmpDesignation(scanner.nextLine());
 			System.out.println("Enter Employee Department : ");
-			newEmployee.setEmpDepartment(scanner.next());
+			newEmployee.setEmpDepartment(scanner.nextLine());
 			System.out.println("Enter Employee Salary : ");
 			newEmployee.setEmpSalary(scanner.nextDouble());
 			System.out.println("Enter Employee Hire Date (YYYY-MM-DD) : ");
-			LocalDate date = LocalDate(scanner.next());
+			LocalDate date = LocalDate.parse(scanner.next());
 			newEmployee.setDateOfJoining(date);
+//			DateTimeFormatter df=new DateTimeFormatterBuilder().parseCaseInsensitive().append(DateTimeFormatter.ofPattern("d-MMM-yyyy")).toFormatter();
+//			newEmployee.setDateOfJoining(LocalDate.parse(scanner.next(),df));
 			
 			if(employeeService.addEmployee(newEmployee))
 				System.out.println("Employee Record Added");

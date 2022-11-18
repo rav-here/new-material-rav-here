@@ -14,4 +14,5 @@ public interface EmployeeDao {
 	Employee searchRecord(int id);
 	int insertRecord(Employee employee);
 	int deleteRecord(int id);
+	int updateSalary(int id, double increment);
 }

@@ -8,9 +8,10 @@ import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
-import com.sujata.database.EmployeeDataBase;
+//import com.sujata.database.EmployeeDataBase;
 import com.sujata.entity.Employee;
 
 public class EmployeeDaoImpl implements EmployeeDao {
@@ -119,9 +120,43 @@ public class EmployeeDaoImpl implements EmployeeDao {
 	public int insertRecord(Employee employee) { // now returns integer because .executeUpdate() returns 1 if successful
 		
 		// DML command 
-		return 
+		Connection connection = null;
+		PreparedStatement preparedStatement;
+		int rows = 0; 
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/Departments", "root", "Archie.092008");
+			preparedStatement = connection.prepareStatement("INSERT INTO EMP VALUES(?,?,?,?,?,?)");
 
-	}
+			preparedStatement.setInt(1, employee.getEmpId());
+			preparedStatement.setString(2, employee.getEmpName());
+			preparedStatement.setString(3, employee.getEmpDesignation());
+			preparedStatement.setString(4, employee.getEmpDepartment());
+			preparedStatement.setDouble(5, employee.getEmpSalary());
+			preparedStatement.setObject(6, employee.getDateOfJoining());
+		
+
+			rows = preparedStatement.executeUpdate();
+
+			return rows;
+			
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+//						4.Close
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return rows;
+	} 
+
 
 	@Override
 	public int deleteRecord(int id) { // now returns integer because .executeUpdate() returns 1 if successful
@@ -134,11 +169,48 @@ public class EmployeeDaoImpl implements EmployeeDao {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
-			connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/wileydi001", "root", "sujata");
+			connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/Departments", "root", "Archie.092008");
 
-			preparedStatement = connection.prepareStatement("DELETE FROM EMPLOYEE WHERE EMPLOYEEID=?");
+			preparedStatement = connection.prepareStatement("DELETE FROM EMP WHERE EMPLOYEEID=?");
 
 			preparedStatement.setInt(1, id);
+
+			rows = preparedStatement.executeUpdate();
+
+			return rows;
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			try {
+//				4.Close
+				connection.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return rows;
+	}
+
+
+	@Override
+	public int updateSalary(int id, double increment) {
+		
+		Connection connection = null;
+		PreparedStatement preparedStatement;
+		int rows=0;
+		
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			connection = DriverManager.getConnection("jdbc:mysql://127.0.0.1:3306/Departments", "root", "Archie.092008");
+
+			preparedStatement = connection.prepareStatement("UPDATE EMP SET SALARY=SALARY+? WHERE EMPLOYEEID=?");
+
+			preparedStatement.setDouble(1, increment);
+			preparedStatement.setInt(2, id);
 
 			rows = preparedStatement.executeUpdate();
 
