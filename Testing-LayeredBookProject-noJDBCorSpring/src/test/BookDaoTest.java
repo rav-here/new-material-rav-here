@@ -31,20 +31,25 @@ class BookDaoTest {
 	//note: here insert returns a book object but in JDBC it returns an integer so the test would differ slightly 
 	@Test
 	void testGetAllRecords() {
-		assertTrue(bookDaoImpl.getAllRecords().size() > 0);
+		assertTrue(bookDaoImpl.getAllRecords().size() > 0); // if argument is true then test is passed
 	}
 	
 	@Test
 	void testInsertRecord() {
-		assertEquals(new Book(101, "Blah", "Rachel", 350), bookDaoImpl.insertRecord(new Book(101, "Blah", "Rachel", 350)));
+		assertEquals(new Book(101, "Blah", "Rachel", 350), bookDaoImpl.insertRecord(new Book(101, "Blah", "Rachel", 350))); // if two arguments are equals then test is passed
 	}
 	
 	@Test
 	void testSearchRecord() {
-		assertEquals(101, bookDaoImpl.searchRecord(101).getBookId());
+		assertEquals(101, bookDaoImpl.searchRecord(101).getBookId()); 
 	}
-	
 
+	
+	// whenever the code is doing the wrong thing, at least ONE of the unit tests should fail
+	// its worth while having multiple scenarios to avoid false passes (add method giving 2*2 = 4)
+	// you should never combine scenarios in one test
+	// you're scenarios should cover 100% of the class functionality
+	// edge cases are import too (testing boundary values are assigned correctly)
 	
 	
 	
