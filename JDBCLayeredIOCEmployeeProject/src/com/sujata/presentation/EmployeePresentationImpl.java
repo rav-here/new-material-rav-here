@@ -7,17 +7,22 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Scanner;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.sujata.entity.Employee;
 import com.sujata.entity.EmployeePaySlip;
 import com.sujata.service.EmployeeService;
 import com.sujata.service.EmployeeServiceImpl;
 
+@Component("empPresentation")
 public class EmployeePresentationImpl implements EmployeePresentation {
 
 	//Presentation will pass the request to service for processing and gives response to client
 	// remove for dependency injection // private EmployeeService employeeService=new EmployeeServiceImpl();
 	private EmployeeService employeeService;
 	// setter
+	@Autowired
 	public void setEmployeeService(EmployeeService employeeService) {
 		this.employeeService = employeeService;
 	}

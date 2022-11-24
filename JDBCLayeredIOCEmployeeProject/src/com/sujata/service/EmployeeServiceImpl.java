@@ -4,18 +4,22 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
 import com.sujata.entity.Employee;
 import com.sujata.entity.EmployeePaySlip;
 import com.sujata.persistence.EmployeeDao;
 import com.sujata.persistence.EmployeeDaoImpl;
 
+@Component("service")
 public class EmployeeServiceImpl implements EmployeeService {
 
 	//Service will request persistence layer for all data needs
 	// remove for dependency injection //private EmployeeDao employeeDao=new EmployeeDaoImpl();
 	private EmployeeDao employeeDao;
 	//constructor  
-	public EmployeeServiceImpl(EmployeeDao employeeDao) {
+	public EmployeeServiceImpl(@Autowired EmployeeDao employeeDao) {
 		this.employeeDao = employeeDao;
 	}
 	

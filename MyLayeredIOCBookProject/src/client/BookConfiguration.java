@@ -16,7 +16,7 @@ public class BookConfiguration {
 //	@Bean(name="dao")
 //	public BookDaoImpl getPersistence() {
 //		return new BookDaoImpl();
-//	}
+//	}	
 //	
 //	@Bean(name="service")
 //	public BookServiceImpl getBookService() {
@@ -31,4 +31,6 @@ public class BookConfiguration {
 //		presentation.setBookService(getBookService());
 //		return presentation;
 //	}
+	
+	
 }

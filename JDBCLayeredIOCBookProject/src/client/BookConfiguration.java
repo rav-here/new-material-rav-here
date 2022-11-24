@@ -1,34 +1,30 @@
 package client;
 
-//import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
-//import org.springframework.context.annotation.Configuration;
-//
-//import persistence.BookDaoImpl;
-//import presentation.BookPresentationImpl;
-//import service.BookServiceImpl;
-
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 @ComponentScan(basePackages = {"persistence", "presentation", "service"})
-//@Configuration
 public class BookConfiguration {
+	
+	// setter inject driver manager data source object
+	@Bean(name="mySqlDataSource")
+	public DriverManagerDataSource getDataSource() {
+		DriverManagerDataSource driver = new DriverManagerDataSource();
+		driver.setDriverClassName("com.mysql.cj.jdbc.Driver");
+		driver.setUrl("jdbc:mysql://127.0.0.1:3306/Departments");
+		driver.setUsername("root");
+		driver.setPassword("Archie.092008");
+		return driver;
+	}
+	
+	// setter inject Jdbc template to help us query+manage mySQL database
+	@Bean
+	public JdbcTemplate getTemplate() {
+		JdbcTemplate jdbcTemplate = new JdbcTemplate();
+		jdbcTemplate.setDataSource(getDataSource());
+		return jdbcTemplate;
+	}
 
-//	@Bean(name="dao")
-//	public BookDaoImpl getPersistence() {
-//		return new BookDaoImpl();
-//	}
-//	
-//	@Bean(name="service")
-//	public BookServiceImpl getBookService() {
-//		//Constructor Injection
-//		return new BookServiceImpl(getPersistence());
-//	}
-//	
-//	@Bean(name="bookPresentation")
-//	public BookPresentationImpl getBookPresentation() {
-//		//Setter Injection
-//		BookPresentationImpl presentation = new BookPresentationImpl();
-//		presentation.setBookService(getBookService());
-//		return presentation;
-//	}
 }
