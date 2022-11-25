@@ -17,6 +17,6 @@ public interface DvDService {
 	
 	boolean editDvD(int Id);
 	
-	boolean updateDvD(int Id, DvD dvd);
+	boolean updateDvD(DvD dvd);
 
 }

@@ -146,7 +146,7 @@ Scanner scanner = new Scanner(System.in);
 					System.out.println("Enter new DvD Duration : ");
 					theDvD.setDuration(scanner.nextDouble());;
 				}
-				dvdService.updateDvD(dvdId, theDvD);
+				dvdService.updateDvD(theDvD);
 				
 			}
 			else {

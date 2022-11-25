@@ -70,7 +70,8 @@ public class DvDServiceImpl implements DvDService {
 	}
 	
 	@Override 
-	public boolean updateDvD(int Id, DvD dvd) {
+	public boolean updateDvD(DvD dvd) {
+		// update and save the dvd object 
 		dvdDao.save(dvd);
 		return true;
 		
