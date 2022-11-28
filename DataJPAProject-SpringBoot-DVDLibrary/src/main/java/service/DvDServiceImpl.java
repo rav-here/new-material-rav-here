@@ -1,14 +1,17 @@
 package service;
 
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import entity.DvD;
 import persistence.DvDDao;
 
-@Component("service")
+//@Component("service")
+@Service
 public class DvDServiceImpl implements DvDService {
 	
 	@Autowired
@@ -76,6 +79,12 @@ public class DvDServiceImpl implements DvDService {
 		return true;
 		
 	}
+
+	@Override
+	public List<DvD> getDvDByDurationGT(double duration) {
+		return dvdDao.findByDurationGreaterThan(duration);
+	}
+
 	
 	
 	

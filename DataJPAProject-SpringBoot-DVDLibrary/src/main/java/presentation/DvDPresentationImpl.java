@@ -8,6 +8,7 @@ import java.util.Scanner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
 import entity.DvD;
 import service.DvDService;
 
@@ -31,7 +32,8 @@ public class DvDPresentationImpl implements DvDPresentation{
 		System.out.println("3. Add New DvD");
 		System.out.println("4. Delete a DvD");
 		System.out.println("5. Edit a DvD");
-		System.out.println("6. Exit");
+		System.out.println("6. Search by DvD Duration");
+		System.out.println("7. Exit");
 		System.out.println("============================");
 		
 	}
@@ -153,8 +155,23 @@ Scanner scanner = new Scanner(System.in);
 				System.out.println("DvD with id "+dvdId+" does not exist");
 			}
 			break;
-		
-		case 6:
+			
+		case 6: 
+			System.out.println("Enter DvD Duration the DvD must be greater than : ");
+			double dur = scanner.nextDouble();
+			List<DvD> durationWiseList = dvdService.getDvDByDurationGT(dur);
+			if (durationWiseList.size() != 0) {
+				for (DvD d : durationWiseList) {
+					System.out.println(d);
+				}
+			}
+			else {
+				System.out.println("No DvD with duration greater than : " +dur);
+			}
+			break; 
+			
+			
+		case 7:
 			System.out.println("Thanks for using Book Management System");
 			// void method for exiting program, it terminates the currently running JVM and exits the program
 			// the parameter integer 0 - means normal exit, any non-zero integer is considered an abnormal exit
