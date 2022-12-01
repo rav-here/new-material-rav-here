@@ -188,7 +188,7 @@ public class EmployeeController {
 		
 		ModelAndView modelAndView = new ModelAndView();
 		int eId = Integer.parseInt(request.getParameter("empId"));
-		Employee employee = employeeService.searchEmployeeById(eId);
+		//Employee employee = employeeService.searchEmployeeById(eId);
 		EmployeePayslip empPS = employeeService.generatePaySlip(eId);
 		
 		if (empPS != null) {
