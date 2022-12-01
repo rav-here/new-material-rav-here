@@ -1,7 +1,11 @@
 package com.rachel.controller;
 
+//import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -14,21 +18,31 @@ public class AccountController {
 	
 	@Autowired
 	private AccountService accountService;
-//	
-//	@RequestMapping("/")
-//	public ModelAndView loginPageController() {
-//		return new ModelAndView("LoginPage");
-//		
-//	}
-//	
-//	@RequestMapping("/login")
-//	public ModelAndView loginController() {
-//		ModelAndView modelAndView = new ModelAndView();
-//		
-//		if 
-//	}
 	
 	@RequestMapping("/")
+	public ModelAndView loginPageController() {
+		return new ModelAndView("LoginPage");
+		
+	}
+	
+	@RequestMapping("/login")
+	public ModelAndView loginController(@ModelAttribute("account") Account account, HttpSession session) {
+		ModelAndView modelAndView = new ModelAndView();
+		
+		if (accountService.loginCheck(account.getAccountId(), account.getPassword())) {
+			modelAndView.addObject("account", account);  //request scope
+			session.setAttribute("account", account);  //data is set on session scope i.e data available in multiple request and response cycles
+			modelAndView.setViewName("index");
+		}
+		else {
+			modelAndView.addObject("message", "Invalid Account Credentials, Please try again");
+			modelAndView.addObject("account", new Account());
+			modelAndView.setViewName("LoginPage");
+		}
+		return modelAndView;
+	}
+	
+	@RequestMapping("/menu")
 	public ModelAndView menuPageController() {
 		return new ModelAndView("Index");
 	}
@@ -61,14 +75,14 @@ public class AccountController {
 	public ModelAndView sendMoneyInputPageController() {
 		return new ModelAndView("InputForSendMoney");
 	}
-	@RequestMapping("/sendMoneyById") 
+	@RequestMapping("/sendMoneyById")  // two accountId's can't be taken! they override each other 
 	public ModelAndView sendMoneyController(@RequestParam("accountId") int senderId, @RequestParam("accountId") int recipId, @RequestParam("amount") double amount) {
 		ModelAndView modelAndView = new ModelAndView();
 		String message = null;
 		boolean moneySent = accountService.sendMoneyById(senderId, recipId, amount);
 		
 		if (moneySent) {
-			message = "Money sent to Account with ID "+recipId+" from Account with "+senderId;
+			message = "Money sent to Account with ID "+recipId+" from Account with ID "+senderId;
 		}
 		else {
 			message = "Money could not be sent, Account with ID "+recipId+" does not exist";
@@ -79,33 +93,27 @@ public class AccountController {
 		return modelAndView;
 		
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+//	@RequestMapping("/sendMoneyById") 
+//	public ModelAndView sendMoneyController(HttpServletRequest request) {
+//		ModelAndView modelAndView = new ModelAndView();
+//		String message = null;
+//		int senderId = Integer.parseInt(request.getParameter("accountId"));
+//		int recipId = Integer.parseInt(request.getParameter("accountId"));
+//		double amount = Double.parseDouble(request.getParameter("amount"));
+//		boolean moneySent = accountService.sendMoneyById(senderId, recipId, amount);
+//		
+//		if (moneySent) {
+//			message = "Money sent to Account with ID "+recipId+" from Account with ID "+senderId;
+//		}
+//		else {
+//			message = "Money could not be sent, Account with ID "+recipId+" does not exist";
+//		}
+//		
+//		modelAndView.addObject("message", message);
+//		modelAndView.setViewName("Output");
+//		return modelAndView;
+//		
+//	}
 	
 	
 	

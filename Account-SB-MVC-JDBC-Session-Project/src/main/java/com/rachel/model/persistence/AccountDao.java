@@ -13,9 +13,11 @@ import com.rachel.entity.Account;
 @Repository
 public interface AccountDao extends JpaRepository<Account, Integer>{
 
+	public Account findByAccountIdAndPassword(int accountId,String password);
+	
 	//JPQL
 	@Modifying
 	@Transactional
-	@Query("update AccountsTable set balance=balance+:amo where accountId=:id")
-	int updateBalance(@Param("id") int id,@Param("amo") double amount);
+	@Query("update Account set balance=balance+:amount where accountId=:id") //have to use the class name NOT the table name
+	int updateBalance(@Param("id") int id,@Param("amount") double amount);
 }

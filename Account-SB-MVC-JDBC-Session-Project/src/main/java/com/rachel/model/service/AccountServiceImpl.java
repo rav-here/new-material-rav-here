@@ -14,6 +14,19 @@ public class AccountServiceImpl implements AccountService {
 	private AccountDao accountDao;
 	
 	@Override
+	public boolean loginCheck(int accountId, String password) {
+		
+		Account accObj = accountDao.findByAccountIdAndPassword(accountId, password);
+		if (accObj != null) {
+			return true;
+		}
+		else {
+			return false;
+		}
+			
+	}
+	
+	@Override
 	public Account searchById(int id) {
 		return accountDao.findById(id).orElse(null);
 	}
@@ -22,27 +35,32 @@ public class AccountServiceImpl implements AccountService {
 	public boolean sendMoneyById(int senderId, int recipId, double amount) {
 		
 		// use searchById method to get our account objects for sender and recip
-		Account senderObj = searchById(senderId);
-		Account recipObj = searchById(recipId);
+//		Account senderObj = searchById(senderId);
+//		Account recipObj = searchById(recipId);
 		
 		
 		// if the account object of the recip exists
-		if (recipObj != null) {
+		//if (recipObj != null) {
+		
+		int senderBalance = accountDao.updateBalance(senderId, -amount);
+		int recipBalance = accountDao.updateBalance(recipId, amount);
+		if (senderBalance !=0 && recipBalance !=0) {	
 			
-			// get balance value
-			double recipBalance = recipObj.getBalance();
-			// add to recip balance value
-			recipBalance += amount;
-			// reset recip balance value
-			recipObj.setBalance(recipBalance);
 			
-			// get balance value
-			double senderBalance = senderObj.getBalance();
-			// take away from sender balance value
-			senderBalance -= amount;
-			// reset sender balance value
-			senderObj.setBalance(senderBalance);
-			
+//			// get balance value
+//			double recipBalance = recipObj.getBalance();
+//			// add to recip balance value
+//			recipBalance += amount;
+//			// reset recip balance value
+//			recipObj.setBalance(recipBalance);
+//			
+//			// get balance value
+//			double senderBalance = senderObj.getBalance();
+//			// take away from sender balance value
+//			senderBalance -= amount;
+//			// reset sender balance value
+//			senderObj.setBalance(senderBalance);
+//			
 			return true;
 		}
 		// if the account object of the recip does not exist
