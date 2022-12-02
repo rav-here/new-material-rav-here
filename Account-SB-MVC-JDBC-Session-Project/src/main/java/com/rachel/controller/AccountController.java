@@ -5,7 +5,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ModelAttribute;
+//import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -26,17 +26,17 @@ public class AccountController {
 	}
 	
 	@RequestMapping("/login")
-	public ModelAndView loginController(@ModelAttribute("account") Account account, HttpSession session) {
+	public ModelAndView loginController(@RequestParam("accountId") int id, @RequestParam("password") String password,  HttpSession session) {
 		ModelAndView modelAndView = new ModelAndView();
-		
-		if (accountService.loginCheck(account.getAccountId(), account.getPassword())) {
+		Account account = accountService.loginCheck(id, password);
+		if (account != null) {
 			modelAndView.addObject("account", account);  //request scope
 			session.setAttribute("account", account);  //data is set on session scope i.e data available in multiple request and response cycles
-			modelAndView.setViewName("index");
+			modelAndView.setViewName("index"); // show menu - that login was successful
 		}
 		else {
 			modelAndView.addObject("message", "Invalid Account Credentials, Please try again");
-			modelAndView.addObject("account", new Account());
+			modelAndView.addObject("account", new Account()); // allows user to attempt login again
 			modelAndView.setViewName("LoginPage");
 		}
 		return modelAndView;

@@ -14,14 +14,14 @@ public class AccountServiceImpl implements AccountService {
 	private AccountDao accountDao;
 	
 	@Override
-	public boolean loginCheck(int accountId, String password) {
+	public Account loginCheck(int accountId, String password) {
 		
 		Account accObj = accountDao.findByAccountIdAndPassword(accountId, password);
 		if (accObj != null) {
-			return true;
+			return accObj;
 		}
 		else {
-			return false;
+			return null;
 		}
 			
 	}
