@@ -75,10 +75,15 @@ public class AccountController {
 	public ModelAndView sendMoneyInputPageController() {
 		return new ModelAndView("InputForSendMoney");
 	}
-	@RequestMapping("/sendMoneyById")  // two accountId's can't be taken! they override each other 
-	public ModelAndView sendMoneyController(@RequestParam("accountId") int senderId, @RequestParam("accountId") int recipId, @RequestParam("amount") double amount) {
+	@RequestMapping("/sendMoneyById") 
+	public ModelAndView sendMoneyController(HttpSession session, @RequestParam("accountId") int recipId, @RequestParam("amount") double amount) {
+		
 		ModelAndView modelAndView = new ModelAndView();
 		String message = null;
+		
+		Account sender = (Account) session.getAttribute("account");
+		int senderId = sender.getAccountId();
+		
 		boolean moneySent = accountService.sendMoneyById(senderId, recipId, amount);
 		
 		if (moneySent) {

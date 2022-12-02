@@ -7,12 +7,11 @@
 <body>
 <h1>Account Management System</h1>
 <hr>
-<h3 th:text="'Welcome '+${session.user.userName}+'!'"></h3>
+<h3 th:text="'Welcome '+${session.account.accountId}+'!'"></h3>
 <hr>
 <form action="./sendMoneyById">
-	Enter Sender Account ID <input type="text" name="accountId"><br><br>
 	Enter Receiver Account ID <input type="text" name="accountId"><br><br>
-	Enter Amount being sent <input type="text" name="amount"><br><br>
+	Enter Amount Being Sent <input type="text" name="amount"><br><br>
 	<input type="submit" value="Send Money">
 </form>
 <br><br>
