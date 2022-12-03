@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>Customer Product System</h1>
+<hr>
+<h2>Customer Receipt</h2>
+<table border="1">
+		<tr> 
+			<th>Customer ID</th>
+			<th>Product Name</th>
+			<th>No. Items</th>
+			<th>Total Spent</th>
+		</tr>
+		<tr>
+			<td th:text="${receipt.customer.customerId}"></td>
+			<td th:text="${receipt.product.productName}"></td>
+			<td th:text="${receipt.itemsBought}"></td>
+			<td th:text="${receipt.totalSpent}"></td>
+		</tr>
+</table>
+<br><br>
+<a href="./menu">Go Back To Menu Page</a>
+</body>
+</html>

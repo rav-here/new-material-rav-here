@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="https://thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>Customer Product System</h1>
+<hr>
+<h3 th:text="'Welcome '+${session.customer.name}+'!'"></h3>
+<hr>
+<a href="./buyProductByIdInputPage">Buy A Product By ID</a><br><br>
+</body>
+</html>
