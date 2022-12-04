@@ -1,5 +1,7 @@
 package com.rachel.model.service;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,12 @@ public class CustomerServiceImpl implements CustomerService {
 	@Autowired
 	private ProductDao productDao;
 	
+	
+	public Collection<Product> showAllProducts() {
+		return productDao.findAll();
+	}
+
+	
 	@Override
 	public Customer loginCheck(int customerId, String password) {
 		// find customer object 
@@ -26,6 +34,7 @@ public class CustomerServiceImpl implements CustomerService {
 		}
 		return null;
 	}
+	
 	
 	@Override
 	public CustomerReceipt customerBuysProduct(int customerId, int productId, int quantity) {
@@ -60,7 +69,6 @@ public class CustomerServiceImpl implements CustomerService {
 		}
 		
 	}
-
 	
 
 }

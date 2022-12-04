@@ -1,5 +1,7 @@
 package com.rachel.controller;
 
+import java.util.Collection;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -11,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.rachel.entity.Customer;
 import com.rachel.entity.CustomerReceipt;
+import com.rachel.entity.Product;
 import com.rachel.model.service.CustomerService;
 
 @Controller
@@ -57,12 +60,30 @@ public class CustomerController {
 		return modelAndView;
 	}
 	
+	
 	// ==================Controllers for Main Menu ========================
 	@RequestMapping("/menu")
 	public ModelAndView mainMenuPageController() {
 		return new ModelAndView("MainMenu");
 	}
 	
+	// ==================Controllers for viewing products ========================
+	@RequestMapping("/viewProducts")
+	public ModelAndView viewProductsPageController() {
+		
+		// instantiate empty/blank MAV object 
+		ModelAndView modelAndView = new ModelAndView();
+		// use service method to return all products in a collection
+		Collection<Product> allProducts = customerService.showAllProducts();
+		
+		// add the collection to the MAV
+		modelAndView.addObject("allProducts", allProducts);
+		// show the product list on the web app
+		modelAndView.setViewName("ShowAllProducts");
+		
+		return modelAndView;
+	}
+
 	// ==================Controllers for Customer Buying Product ========================
 	@RequestMapping("/buyProductByIdInputPage")
 	public ModelAndView buyProductByIdInputPageController() {
@@ -98,8 +119,12 @@ public class CustomerController {
 		}
 		
 		return modelAndView;
-		
-		
+	
 	}
+
+	
+	
+	
+	
 	
 }
