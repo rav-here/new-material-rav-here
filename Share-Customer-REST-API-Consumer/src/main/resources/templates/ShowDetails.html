@@ -11,18 +11,18 @@
 			<tr>
 				<th>Customer ID</th>
 				<th>Share Name</th>
-				<th>SHare Type</th>
+				<th>Share Type</th>
 				<th>Quantity</th>
 				<th>Market Price</th>
 				<th>Total Valuation</th>
 			</tr>
 			<tr th:each="customerDetail : ${customerDetails}">
-				<td th:text="${customerDetail.customerId"></td>
-				<td th:text="${customerDetail.shareName"></td>
-				<td th:text="${customerDetail.shareType"></td>
-				<td th:text="${customerDetail.quantity"></td>
-				<td th:text="${customerDetail.marketPrice"></td>
-				<td th:text="${customerDetail.totalValuation"></td>
+				<td th:text="${customerDetail.customerId}"></td>
+				<td th:text="${customerDetail.shareName}"></td>
+				<td th:text="${customerDetail.shareType}"></td>
+				<td th:text="${customerDetail.quantity}"></td>
+				<td th:text="${customerDetail.marketPrice}"></td>
+				<td th:text="${customerDetail.totalValuation}"></td>
 			</tr>
 		</table>
 </body>

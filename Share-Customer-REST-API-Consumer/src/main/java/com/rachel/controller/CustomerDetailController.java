@@ -27,9 +27,10 @@ public class CustomerDetailController {
 		// create empty MAV object
 		ModelAndView modelAndView = new ModelAndView();
 		// get CustomerDetail object list via service layer object
-		List<CustomerDetail> customerdetails = customerDetailService.getCustomerDetailByCustomerId(customerId);
+		List<CustomerDetail> customerDetails = customerDetailService.getCustomerDetailByCustomerId(customerId);
+		System.out.println(customerDetails);
 		// add the list to the MAV object
-		modelAndView.addObject("customerDetails", customerdetails);
+		modelAndView.addObject("customerDetails", customerDetails);
 		// add the customerId field to MAV object
 		modelAndView.addObject("customerId", customerId);
 		// set the view that will display info on the web app

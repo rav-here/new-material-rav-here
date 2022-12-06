@@ -27,16 +27,16 @@ public class CustomerDetailServiceImpl implements CustomerDetailService {
 		
 		// calling the Customer Rest API producer (or service) - using restTemplate object
 		// and storing a list of the customers in a CustomerList object
-		CustomerList customerList = restTemplate.getForObject("Url"+ customerId, CustomerList.class);
+		CustomerList customerList = restTemplate.getForObject("http://localhost:8082/customers/"+ customerId, CustomerList.class);
 		
 		// iterate over the Customer objects in customerList 
-		for (Customer cust : customerList.getCustomers()) {
+		for (Customer customer : customerList.getCustomers()) {
 			
 			// from every customer object (c), picking the share ID and calling the Share Rest API producer (or service)
-			Share share = restTemplate.getForObject("Url" + cust.getShareId(), Share.class);
+			Share share = restTemplate.getForObject("http://localhost:8081/shares/" + customer.getShareId(), Share.class);
 			
 			// then create a CustomerDetail object using Customer and Share objects 
-			CustomerDetail customerDetail = new CustomerDetail(cust.getCustomerId(), share.getShareName(), cust.getQuantity(), share.getMarketPrice(), (cust.getQuantity() * share.getMarketPrice()), cust.getShareType());
+			CustomerDetail customerDetail = new CustomerDetail(customer.getCustomerId(), share.getShareName(), customer.getQuantity(), share.getMarketPrice(), (customer.getQuantity() * share.getMarketPrice()), customer.getShareType());
 			
 			// add the CustomerDetail object to the customerDetailList
 			customerDetailList.add(customerDetail);
